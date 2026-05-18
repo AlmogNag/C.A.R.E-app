@@ -14,39 +14,35 @@ namespace C.A.R.E_app
 
         private async void btnReset_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("The system has been successfully reset.");
-
-            this.BackColor = SystemColors.Control;
-            lblStatus.Text = "System Standby - Monitoring...";
-            lblStatus.ForeColor = Color.Black;
-
             picCamera.Image = null;
-
             try
             {
                 await client.Child("AlertSystem").Child("isAlert").PutAsync(false);
 
-                MessageBox.Show("Alert acknowledged. History log preserved.");
+                this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show("Error updating cloud: " + ex.Message);
             }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             client = new FirebaseClient("https://care-c0bdb-default-rtdb.europe-west1.firebasedatabase.app/");
-            
+
             client.Child("AlertSystem")
           .AsObservable<dynamic>()
           .Subscribe(d => HandleAlertUpdate(d));
+            this.WindowState = FormWindowState.Minimized;
+            this.ShowInTaskbar = false;
         }
 
         private void HandleAlertUpdate(dynamic data)
         {
-            Console.WriteLine("Update received! Key: " + data.Key + " Value: " + data.Object);
-
             if (data != null && data.Object != null)
             {
                 if (data.Key == "isAlert")
@@ -55,9 +51,15 @@ namespace C.A.R.E_app
                     {
                         this.Invoke((MethodInvoker)delegate
                         {
+                            this.WindowState = FormWindowState.Normal;
+                            this.ShowInTaskbar = true;
+                            this.TopMost = true;
+
                             this.BackColor = Color.DarkRed;
-                            lblStatus.Text = "Danger! Presence Detected!";
+                            lblStatus.Text = "Danger! \nPresence detected!";
                             lblStatus.ForeColor = Color.White;
+
+                            lblStatus.Left = (this.ClientSize.Width - lblStatus.Width) / 2;
                         });
                     }
                 }

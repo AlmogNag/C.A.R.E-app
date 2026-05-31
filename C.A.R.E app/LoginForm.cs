@@ -27,7 +27,8 @@ namespace C.A.R.E_app
         public static Participant? LoggedInUser { get; private set; }
 
         // הכתובת האמיתית של ה-Firebase שלך עודכנה גם כאן
-        private readonly FirebaseClient client = new FirebaseClient("https://care-c0bdb-default-rtdb.europe-west1.firebasedatabase.app/");
+        //private readonly FirebaseClient client = new FirebaseClient("https://care-c0bdb-default-rtdb.europe-west1.firebasedatabase.app/");
+        FirebaseClient client = FirebaseService.Client;
 
         public LoginForm()
         {

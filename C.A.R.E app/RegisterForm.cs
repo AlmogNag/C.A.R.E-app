@@ -22,7 +22,8 @@ namespace C.A.R.E_app
         public string RegisteredCamera { get; private set; } = string.Empty;
 
         // הכתובת האמיתית של ה-Firebase שלך עודכנה כאן
-        private readonly FirebaseClient client = new FirebaseClient("https://care-c0bdb-default-rtdb.europe-west1.firebasedatabase.app/");
+        //private readonly FirebaseClient client = new FirebaseClient("https://care-c0bdb-default-rtdb.europe-west1.firebasedatabase.app/");
+        FirebaseClient client = FirebaseService.Client;
 
         public RegisterForm()
         {

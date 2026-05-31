@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using System;   
 namespace C.A.R.E_app
 {
-    public partial class Form1 : Form
+    public partial class popUpView : Form
     {
         FirebaseClient client;
-        public Form1()
+        public popUpView()
         {
             InitializeComponent();
         }
@@ -32,7 +32,7 @@ namespace C.A.R.E_app
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            client = new FirebaseClient("https://care-c0bdb-default-rtdb.europe-west1.firebasedatabase.app/");
+            var client = FirebaseService.Client;
 
             client.Child("AlertSystem")
           .AsObservable<dynamic>()

@@ -1,6 +1,6 @@
 ﻿namespace C.A.R.E_app
 {
-    partial class Form1
+    partial class popUpView
     {
         /// <summary>
         ///  Required designer variable.

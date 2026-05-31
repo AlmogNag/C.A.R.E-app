@@ -1,15 +1,20 @@
 ﻿using Firebase.Database;
 using Firebase.Database.Query;
 using System.Threading.Tasks;
-using System;   
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace C.A.R.E_app
 {
     public partial class popUpView : Form
     {
         FirebaseClient client;
+
         public popUpView()
         {
             InitializeComponent();
+            client = FirebaseService.Client;
         }
 
         private async void btnReset_Click(object sender, EventArgs e)
@@ -22,21 +27,18 @@ namespace C.A.R.E_app
                 this.WindowState = FormWindowState.Minimized;
                 this.ShowInTaskbar = false;
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show("Error updating cloud: " + ex.Message);
             }
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var client = FirebaseService.Client;
-
             client.Child("AlertSystem")
-          .AsObservable<dynamic>()
-          .Subscribe(d => HandleAlertUpdate(d));
+                  .AsObservable<dynamic>()
+                  .Subscribe(d => HandleAlertUpdate(d));
+
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;
         }

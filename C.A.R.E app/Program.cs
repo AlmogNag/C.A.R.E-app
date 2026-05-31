@@ -15,7 +15,8 @@ namespace C.A.R.E_app
 
             if (login.ShowDialog() == DialogResult.OK)
             {
-                Application.Run(new popUpView());
+                //Application.Run(new popUpView());
+                Application.Run(new DashboardForm());
             }
             else
             {
